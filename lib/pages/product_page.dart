@@ -48,66 +48,95 @@ class ProductPage extends StatelessWidget {
           ),
         ],
       ),
-      body: GridView.builder(
-        padding: const EdgeInsets.all(16),
-        itemCount: products.length,
-        gridDelegate:
-            const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          mainAxisSpacing: 12,
-          crossAxisSpacing: 12,
-          childAspectRatio: 1.4,
-        ),
-        itemBuilder: (_, index) {
-          final product = products[index];
 
-          return Card(
-            elevation: 2,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(14),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+
+          int crossAxisCount;
+
+          if (constraints.maxWidth > 1200) {
+            crossAxisCount = 6;
+          } else if (constraints.maxWidth > 800) {
+            crossAxisCount = 4;
+          } else if (constraints.maxWidth > 600) {
+            crossAxisCount = 3;
+          } else {
+            crossAxisCount = 2;
+          }
+
+          return GridView.builder(
+            padding: const EdgeInsets.all(16),
+            itemCount: products.length,
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: crossAxisCount,
+              mainAxisSpacing: 16,
+              crossAxisSpacing: 16,
+              childAspectRatio: 0.9,
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Center(
-                    child: Text(
-                      product.emoji,
-                      style: const TextStyle(fontSize: 34),
-                    ),
-                  ),
-                  const SizedBox(height: 6),
-                  Text(
-                    product.name,
-                    style: const TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    "Rp ${product.price}",
-                    style: const TextStyle(
-                      fontSize: 11,
-                      color: Colors.grey,
-                    ),
-                  ),
-                  const Spacer(),
-                  SizedBox(
-                    height: 28,
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () => cart.add(product),
-                      child: const Text(
-                        "Add",
-                        style: TextStyle(fontSize: 11),
+            itemBuilder: (_, index) {
+              final product = products[index];
+
+              return Card(
+                elevation: 3,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        product.emoji,
+                        style: const TextStyle(fontSize: 42),
                       ),
-                    ),
+
+                      const SizedBox(height: 10),
+
+                      Text(
+                        product.name,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+
+                      const SizedBox(height: 6),
+
+                      Text(
+                        "Rp ${product.price}",
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey,
+                        ),
+                      ),
+
+                      const SizedBox(height: 12),
+
+                      SizedBox(
+                        height: 34,
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () => cart.add(product),
+                          style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          child: const Text(
+                            "Add to Cart",
+                            style: TextStyle(fontSize: 13),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
+                ),
+              );
+            },
           );
         },
       ),
