@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'models/cart_model.dart';
-import 'pages/product_list_page.dart';
+import 'pages/product_page.dart';
 
 void main() {
   runApp(
@@ -17,9 +17,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ProductListPage(),
+      title: "Modern Cart",
+      theme: ThemeData(
+        useMaterial3: true,
+        colorSchemeSeed: Colors.indigo,
+        scaffoldBackgroundColor: const Color(0xFFF4F6FA),
+      ),
+      home: const ProductPage(),
     );
   }
 }

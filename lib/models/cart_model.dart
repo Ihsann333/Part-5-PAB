@@ -7,11 +7,11 @@ class CartModel extends ChangeNotifier {
 
   Map<String, CartItem> get items => _items;
 
-  int get itemCount =>
+  int get totalItems =>
       _items.values.fold(0, (sum, item) => sum + item.quantity);
 
   double get totalPrice =>
-      _items.values.fold(0, (sum, item) => sum + item.totalPrice);
+      _items.values.fold(0, (sum, item) => sum + item.total);
 
   void add(Product product) {
     if (_items.containsKey(product.id)) {
@@ -22,16 +22,16 @@ class CartModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void increase(String productId) {
-    _items[productId]!.quantity++;
+  void increase(String id) {
+    _items[id]!.quantity++;
     notifyListeners();
   }
 
-  void decrease(String productId) {
-    if (_items[productId]!.quantity > 1) {
-      _items[productId]!.quantity--;
+  void decrease(String id) {
+    if (_items[id]!.quantity > 1) {
+      _items[id]!.quantity--;
     } else {
-      _items.remove(productId);
+      _items.remove(id);
     }
     notifyListeners();
   }

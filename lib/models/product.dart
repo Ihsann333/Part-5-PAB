@@ -12,9 +12,9 @@ class Product {
   });
 }
 
-final List<Product> products = [
-  Product(id: '1', name: 'Apple', price: 10000, emoji: '🍎'),
-  Product(id: '2', name: 'Banana', price: 8000, emoji: '🍌'),
-  Product(id: '3', name: 'Orange', price: 12000, emoji: '🍊'),
-  Product(id: '4', name: 'Mango', price: 15000, emoji: '🥭'),
+final products = [
+  Product(id: "1", name: "Coffee", price: 20000, emoji: "☕"),
+  Product(id: "2", name: "Burger", price: 35000, emoji: "🍔"),
+  Product(id: "3", name: "Pizza", price: 50000, emoji: "🍕"),
+  Product(id: "4", name: "Cake", price: 25000, emoji: "🍰"),
 ];

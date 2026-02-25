@@ -11,50 +11,80 @@ class CartPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cart'),
+        title: const Text("Your Cart"),
         actions: [
           IconButton(
-            icon: const Icon(Icons.delete),
+            icon: const Icon(Icons.delete_forever),
             onPressed: cart.clear,
           )
         ],
       ),
       body: cart.items.isEmpty
-          ? const Center(child: Text('Cart is empty'))
+          ? const Center(
+              child: Column(
+                mainAxisAlignment:
+                    MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.shopping_cart,
+                      size: 80, color: Colors.grey),
+                  SizedBox(height: 12),
+                  Text("Cart is empty")
+                ],
+              ),
+            )
           : Column(
               children: [
                 Expanded(
                   child: ListView(
-                    children: cart.items.values.map((item) {
-                      return ListTile(
-                        leading: Text(item.product.emoji),
-                        title: Text(item.product.name),
-                        subtitle: Text(
-                            'Rp ${item.totalPrice} (${item.quantity}x)'),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            IconButton(
-                              icon: const Icon(Icons.remove),
-                              onPressed: () =>
-                                  cart.decrease(item.product.id),
-                            ),
-                            IconButton(
-                              icon: const Icon(Icons.add),
-                              onPressed: () =>
-                                  cart.increase(item.product.id),
-                            ),
-                          ],
+                    children:
+                        cart.items.values.map((item) {
+                      return Card(
+                        margin:
+                            const EdgeInsets.all(8),
+                        child: ListTile(
+                          leading:
+                              Text(item.product.emoji),
+                          title:
+                              Text(item.product.name),
+                          subtitle: Text(
+                              "Rp ${item.total}"),
+                          trailing: Row(
+                            mainAxisSize:
+                                MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                icon: const Icon(
+                                    Icons.remove),
+                                onPressed: () =>
+                                    cart.decrease(
+                                        item.product.id),
+                              ),
+                              Text(
+                                  item.quantity
+                                      .toString()),
+                              IconButton(
+                                icon: const Icon(
+                                    Icons.add),
+                                onPressed: () =>
+                                    cart.increase(
+                                        item.product.id),
+                              ),
+                            ],
+                          ),
                         ),
                       );
                     }).toList(),
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(16),
+                  padding:
+                      const EdgeInsets.all(16),
                   child: Text(
-                    'Total: Rp ${cart.totalPrice}',
-                    style: const TextStyle(fontSize: 18),
+                    "Total: Rp ${cart.totalPrice}",
+                    style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight:
+                            FontWeight.bold),
                   ),
                 )
               ],
