@@ -10,6 +10,82 @@ class CartPage extends StatelessWidget {
     final cart = context.watch<CartModel>();
 
     return Scaffold(
+      bottomNavigationBar: Consumer<CartModel>(
+  builder: (context, cart, _) {
+
+    return Container(
+      padding: const EdgeInsets.all(16),
+
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 10,
+            color: Colors.black12,
+          ),
+        ],
+      ),
+
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+
+          // TOTAL
+          Row(
+            mainAxisAlignment:
+                MainAxisAlignment.spaceBetween,
+            children: [
+
+              const Text(
+                "Total",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+
+              Text(
+                "Rp ${cart.totalPrice}",
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 12),
+
+          // TOMBOL BELI
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+
+              onPressed: () {
+
+                if (cart.totalItems == 0) return;
+
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(
+                  const SnackBar(
+                    content:
+                        Text("Pesanan berhasil dibeli 😄"),
+                  ),
+                );
+
+                cart.clear(); // kosongkan cart
+              },
+
+              child: const Text(
+                "Beli Sekarang",
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  },
+),
       appBar: AppBar(
         title: const Text("Your Cart"),
         actions: [
